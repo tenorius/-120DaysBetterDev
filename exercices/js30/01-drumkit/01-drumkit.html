@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+
+        html, body{
+            height:100%;
+        }
+
+        body{
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .background{
+            height:100%;
+            background-image: url(assets/piano.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .keys{
+            display: flex;
+        }
+
+        .key{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 110px;
+            width: 60px;
+            border: 1px solid black;
+            background-color: white;
+            margin: 0 10px;
+            transition: all 0.15s;
+        }
+
+        .key::after{
+            content: '';
+            height:20px;
+            width: 100%;
+            border:1px solid black;
+            background: white;
+            transition: height 0.15s;
+        }
+
+        .key.pressed::after{
+            content: '';
+            height:0;
+
+
+        }
+
+        .black{
+            background: black;
+            flex: 0 0 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 25px;
+        }
+
+        span{
+            color: white;
+            text-align: center;
+            align-self: center;
+        }
+
+        label{
+            margin-top: 12px;
+            font-family: cursive;
+            font-size: 17px;
+            text-align: center;
+            flex:1;
+        }
+
+        .pressed{
+            transform: scale(1.1);
+            border:3px solid yellow;
+            border-right:5px;
+            box-shadow: 0 0 60px yellow;
+            background: gray;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background">
+        <h1>TENORIUS PIANO</h1>
+
+        <div class="keys">
+            <div data-key="81" class="key">
+                <div class="black">
+                    <span>Q</span>
+                </div>
+
+                <label>A</label>
+            </div>
+            <div data-key="87" class="key">
+                <div class="black">
+                    <span>W</span>
+                </div>
+                <label>B</label>
+            </div>
+            <div data-key="69" class="key">
+                <div class="black">
+                    <span>E</span>
+                </div>
+                <label>#Bb</label>
+            </div>
+            <div data-key="82" class="key">
+                <div class="black">
+                    <span>R</span>
+                </div>
+                <label>C#</label>
+            </div>
+            <div data-key="84" class="key">
+                <div class="black">
+                    <span>T</span>
+                </div>
+                <label>C</label>
+            </div>
+
+            <div data-key="89" class="key">
+                <div class="black">
+                    <span>Y</span>
+                </div>
+                <label>D</label>
+            </div>
+
+            <div data-key="85" class="key">
+                <div class="black">
+                    <span>U</span>
+                </div>
+                <label>E</label>
+            </div>
+
+            <div data-key="73" class="key">
+                <div class="black">
+                    <span>I</span>
+                </div>
+                <label>Eb</label>
+            </div>
+
+            <div data-key="79" class="key">
+                <div class="black">
+                    <span>O</span>
+                </div>
+                <label>F#</label>
+            </div>
+
+            <div data-key="80" class="key">
+                <div class="black">
+                    <span>P</span>
+                </div>
+                <label>F</label>
+            </div>
+
+            <div data-key="219" class="key">
+                <div class="black">
+                    <span>{</span>
+                </div>
+                <label>G#</label>
+            </div>
+
+            <div data-key="221" class="key">
+                <div class="black">
+                    <span>}</span>
+                </div>
+                <label>G</label>
+            </div>
+
+        </div>
+    </div>
+
+    <audio data-key="81" src="assets/piano-a.wav"></audio>
+    <audio data-key="87" src="assets/piano-b.wav"></audio>
+    <audio data-key="69" src="assets/piano-bb.wav"></audio>
+    <audio data-key="82" src="assets/piano-c.wav"></audio>
+    <audio data-key="84" src="assets/piano-c2.wav"></audio>
+    <audio data-key="89" src="assets/piano-d.wav"></audio>
+    <audio data-key="85" src="assets/piano-e.wav"></audio>
+    <audio data-key="73" src="assets/piano-eb.wav"></audio>
+    <audio data-key="79" src="assets/piano-f.wav"></audio>
+    <audio data-key="80" src="assets/piano-f2.wav"></audio>
+    <audio data-key="219" src="assets/piano-g.wav"></audio>
+    <audio data-key="221" src="assets/piano-g2.wav"></audio>
+
+
+    <script>
+        window.addEventListener('keydown', function (e) {
+            const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+            const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+
+            key.classList.add('pressed');
+            audio.currentTime = 0;
+            audio.play();
+        });
+
+        var keys = document.querySelectorAll('.key');
+        keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+        function removeTransition(e){
+            console.log(e);
+            if(e.propertyName !== 'background-color') return;
+            this.classList.remove('pressed');
+        }
+
+    </script>
+</body>
+</html>
