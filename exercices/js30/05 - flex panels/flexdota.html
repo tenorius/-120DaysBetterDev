@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    
+    <style>
+
+        html {
+            box-sizing: border-box;
+            background:#ffc600;
+            font-family:'helvetica neue';
+            font-size: 20px;
+            font-weight: 200;
+        }
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .panels{
+            display: flex;
+            min-height:100vh;
+            overflow: hidden;
+        }
+        .shadow-fiend{
+            background: url("assets/dota-2-wallpaper-nevermore-81835152.jpg");
+        }
+        .blood-seeker{
+            background: url("assets/322554.jpg");
+        }
+        .templar{
+            background: url("assets/Dota 2 Art Templar Assassin.jpg");
+        }
+        .treant{
+            background: url("assets/10_Dota2-Treant-Protector.jpg");
+        }
+        .ezalor{
+            background: url("assets/wallpapersdota2.com-480.jpg");
+        }
+        .panel{
+            background-size:cover;
+            background-position:center;
+            box-shadow:inset 0 0 0 5px rgba(255,255,255,0.1);
+            transition:
+                    font-size 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
+                    flex 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
+                    background 0.2s;            color:white;
+            background-size: cover;
+            flex: 1;
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .panel > * {
+            margin:0;
+            width: 100%;
+            transition:transform 0.5s;
+            flex: 1 0 auto;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .panel p {
+            text-transform: uppercase;
+            font-family: 'Amatic SC', cursive;
+            text-shadow:0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
+            font-size: 1em;
+        }
+
+        .panel p:nth-child(2) {
+            font-size: 2em;
+        }
+
+        .panel.open {
+            flex: 5;
+            font-size:40px;
+        }
+
+        .panel > *:first-child { transform: translateY(-100%); }
+        .panel.open-active > *:first-child { transform: translateY(0); }
+        .panel > *:last-child { transform: translateY(100%); }
+        .panel.open-active > *:last-child { transform: translateY(0); }
+        
+    </style>
+</head>
+<body>
+    <div class="panels">
+        <div class="panel shadow-fiend">
+            <p class="text top">Your</p>
+            <p class="text center">Soul</p>
+            <p class="text bottom">Is Mine!</p>
+        </div>
+        <div class="panel blood-seeker">
+            <p class="text top">Your</p>
+            <p class="text center">Blood</p>
+            <p class="text bottom">Is Mine!</p>
+        </div>
+        <div class="panel templar">
+            <p class="text top">The</p>
+            <p class="text center">Secret</p>
+            <p class="text bottom">Is Out!</p>
+        </div>
+        <div class="panel treant">
+            <p class="text top">Into</p>
+            <p class="text center">Forest</p>
+            <p class="text bottom">Shade</p>
+        </div>
+        <div class="panel ezalor">
+            <p class="text top">The</p>
+            <p class="text center">Light</p>
+            <p class="text bottom">Shines!</p>
+        </div>
+    </div>
+
+
+    <script>
+        const panels = document.querySelectorAll('.panel');
+        function toggleOpen() {
+            console.log('Hello');
+            this.classList.toggle('open');
+        }
+        function toggleActive(e) {
+            console.log(e.propertyName);
+            if (e.propertyName.includes('flex')) {
+                this.classList.toggle('open-active');
+            }
+        }
+        panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+        panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
+    </script>
+</body>
+</html>
